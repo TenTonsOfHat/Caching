@@ -1,6 +1,7 @@
 using Library;
 using Library.CachedItems;
 using Library.Caching;
+using Library.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
@@ -27,9 +28,9 @@ var summaries = new[]
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
-app.MapGet("/weatherforecast", async (ICached<Weather> weatherCache) =>
+app.MapGet("/weatherforecast", async (ICacheRepository repo) =>
     {
-        var data = await weatherCache.Retrieve();
+        var data = await repo.Weather.Retrieve();
         return data.Forecasts;
     })
     .WithName("GetWeatherForecast")
