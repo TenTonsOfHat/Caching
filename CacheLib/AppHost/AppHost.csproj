@@ -10,13 +10,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Aspire.Hosting.AppHost" Version="8.2.2" />
-        <PackageReference Include="Aspire.Hosting.Redis" Version="8.2.2" />
+        <PackageReference Include="Aspire.Hosting.AppHost" Version="8.2.2"/>
+        <PackageReference Include="Aspire.Hosting.Redis" Version="8.2.2"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\PrimaryAPI\PrimaryAPI.csproj" />
-      <ProjectReference Include="..\SecondaryAPI\SecondaryAPI.csproj" />
+        <ProjectReference Include="..\PrimaryAPI\PrimaryAPI.csproj"/>
+        <ProjectReference Include="..\SecondaryAPI\SecondaryAPI.csproj"/>
     </ItemGroup>
 
 </Project>

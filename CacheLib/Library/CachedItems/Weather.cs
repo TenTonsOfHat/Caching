@@ -12,7 +12,6 @@ public record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }
 
-
 public class WeatherCacheFactory : ICacheFactory<Weather>, ITransientService
 {
     public Task<Weather> CreateAsync()
@@ -33,6 +32,4 @@ public class WeatherCacheFactory : ICacheFactory<Weather>, ITransientService
 
         return Task.FromResult(new Weather(results));
     }
-
-
 }

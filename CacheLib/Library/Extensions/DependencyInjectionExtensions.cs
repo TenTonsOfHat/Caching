@@ -11,32 +11,31 @@ namespace Library;
 
 public static class DependencyInjectionExtensions
 {
-    
-   public static IServiceCollection RegisterAll(this IServiceCollection services, ConfigurationManager config)
-   {
-       var cacheBuilder = services.AddFusionCache()
-           .WithDefaultEntryOptions(new FusionCacheEntryOptions
-           {
-               Duration = TimeSpan.FromMinutes(2)
-           });
+    public static IServiceCollection RegisterAll(this IServiceCollection services, ConfigurationManager config)
+    {
+        var cacheBuilder = services.AddFusionCache()
+            .WithDefaultEntryOptions(new FusionCacheEntryOptions
+            {
+                Duration = TimeSpan.FromMinutes(2)
+            });
 
-       var cacheString = config.GetConnectionString("cache");
-       if (!string.IsNullOrWhiteSpace(cacheString))
-       {
-           cacheBuilder = cacheBuilder
-               .WithSerializer(
-                   new FusionCacheNeueccMessagePackSerializer(MessagePack.Resolvers.ContractlessStandardResolverAllowPrivate.Options)
-               )
-               .WithDistributedCache(new RedisCache(new RedisCacheOptions { Configuration = cacheString }))    
-               .WithBackplane(new RedisBackplane(new RedisBackplaneOptions { Configuration = cacheString }));
-       }
-       
-        
-       return services
-           .AddScoped(typeof(ICached<>), typeof(Cached<>))
-           .RegisterScopedServices()
-           .RegisterTransientServices()
-          ;
+        var cacheString = config.GetConnectionString("cache");
+        if (!string.IsNullOrWhiteSpace(cacheString))
+        {
+            cacheBuilder = cacheBuilder
+                .WithSerializer(
+                    new FusionCacheNeueccMessagePackSerializer(MessagePack.Resolvers.ContractlessStandardResolverAllowPrivate.Options)
+                )
+                .WithDistributedCache(new RedisCache(new RedisCacheOptions { Configuration = cacheString }))
+                .WithBackplane(new RedisBackplane(new RedisBackplaneOptions { Configuration = cacheString }));
+        }
+
+
+        return services
+                .AddScoped(typeof(ICached<>), typeof(Cached<>))
+                .RegisterScopedServices()
+                .RegisterTransientServices()
+            ;
     }
 
 
